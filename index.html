@@ -283,3 +283,15 @@
   </script>
 </body>
 </html>
+<audio id="bgMusic" src="music/background.mp3" loop></audio>
+
+<script>
+  // Diğer kodların devamı...
+
+  window.addEventListener('load', () => {
+    const music = document.getElementById('bgMusic');
+    music.play().catch(() => {
+      console.log("Otomatik müzik oynatma engellendi.");
+    });
+  });
+</script>
