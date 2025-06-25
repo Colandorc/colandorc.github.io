@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Gece Gökyüzü</title>
+  <title>Gece Gökyüzü - Kayan Yıldızlı</title>
   <style>
     body {
       margin: 0;
@@ -41,13 +41,33 @@
       from {opacity: 0.2;}
       to {opacity: 1;}
     }
+
+    .shooting-star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      box-shadow: 0 0 6px white;
+      animation: shoot 1s linear forwards;
+    }
+
+    @keyframes shoot {
+      0% {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-600px, 300px);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="stars"></div>
 
-  <!-- Parlayan 50 yıldız -->
   <script>
+    // Parlayan yıldızlar
     for (let i = 0; i < 50; i++) {
       const star = document.createElement('div');
       star.classList.add('twinkle');
@@ -58,6 +78,27 @@
       star.style.animationDuration = (Math.random() * 3 + 1) + 's';
       document.body.appendChild(star);
     }
+
+    // Kayan yıldızlar
+    function createShootingStar() {
+      const star = document.createElement('div');
+      star.classList.add('shooting-star');
+      star.style.top = Math.random() * 50 + 'vh';
+      star.style.left = (Math.random() * 100 + 50) + 'vw';
+      star.style.width = '2px';
+      star.style.height = '2px';
+      document.body.appendChild(star);
+
+      setTimeout(() => {
+        star.remove();
+      }, 1000);
+    }
+
+    // Belirli aralıklarla kayan yıldız oluştur
+    setInterval(() => {
+      createShootingStar();
+    }, 3000); // her 3 saniyede bir kayan yıldız
+
   </script>
 </body>
 </html>
