@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Gece Gökyüzü - Kayan Yıldızlı</title>
+  <meta charset="UTF-8" />
+  <title>Gece Gökyüzü - İzli Kayan Yıldız</title>
   <style>
     body {
       margin: 0;
       background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
       overflow: hidden;
       height: 100vh;
+      position: relative;
     }
 
     .stars {
@@ -20,6 +21,7 @@
       top: 0;
       left: 0;
       opacity: 0.5;
+      z-index: 1;
     }
 
     .twinkle {
@@ -30,6 +32,42 @@
       width: 2px;
       height: 2px;
       animation: twinkle 2s infinite ease-in-out alternate;
+      z-index: 2;
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      box-shadow:
+        0 0 6px 2px rgba(255, 255, 255, 0.7),
+        0 0 20px 6px rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      filter: drop-shadow(0 0 8px white);
+      animation: shoot 2.5s linear forwards;
+      z-index: 3;
+    }
+
+    /* İz efekti için kuyruk */
+    .shooting-star::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, white, transparent);
+      opacity: 0.6;
+      transform: translateY(-50%);
+      border-radius: 100px;
+      filter: blur(4px);
+      animation: tailFade 2.5s forwards;
+    }
+
+    @keyframes tailFade {
+      from {opacity: 0.6;}
+      to {opacity: 0;}
     }
 
     @keyframes moveStars {
@@ -42,32 +80,48 @@
       to {opacity: 1;}
     }
 
-    .shooting-star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      box-shadow: 0 0 6px white;
-      animation: shoot 1s linear forwards;
-    }
-
     @keyframes shoot {
       0% {
         transform: translate(0, 0);
         opacity: 1;
       }
       100% {
-        transform: translate(-600px, 300px);
+        transform: translate(-400px, 200px);
         opacity: 0;
       }
+    }
+
+    .moon {
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle at 30% 30%, #ffffffcc, #eeeeee22, transparent);
+      border-radius: 50%;
+      box-shadow: -10px 0 20px #ffffff44;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .moon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20px;
+      width: 100%;
+      height: 100%;
+      background: #1b2735;
+      border-radius: 50%;
     }
   </style>
 </head>
 <body>
   <div class="stars"></div>
+  <div class="moon"></div>
 
   <script>
-    // Parlayan yıldızlar
+    // Parlayan sabit yıldızlar
     for (let i = 0; i < 50; i++) {
       const star = document.createElement('div');
       star.classList.add('twinkle');
@@ -79,26 +133,24 @@
       document.body.appendChild(star);
     }
 
-    // Kayan yıldızlar
+    // Kayan yıldız oluşturma fonksiyonu
     function createShootingStar() {
       const star = document.createElement('div');
       star.classList.add('shooting-star');
       star.style.top = Math.random() * 50 + 'vh';
       star.style.left = (Math.random() * 100 + 50) + 'vw';
-      star.style.width = '2px';
-      star.style.height = '2px';
       document.body.appendChild(star);
 
+      // 2.5 saniye sonra kaldır
       setTimeout(() => {
         star.remove();
-      }, 1000);
+      }, 2500);
     }
 
-    // Belirli aralıklarla kayan yıldız oluştur
+    // 4 saniyede bir kayan yıldız oluştur (hızı yavaş)
     setInterval(() => {
       createShootingStar();
-    }, 3000); // her 3 saniyede bir kayan yıldız
-
+    }, 4000);
   </script>
 </body>
 </html>
