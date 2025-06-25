@@ -121,7 +121,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 3.5vw; /* Küçüldü */
+      font-size: 3.5vw;
       font-weight: 600;
       color: white;
       text-shadow:
@@ -138,6 +138,23 @@
 
     #centerText.hidden {
       opacity: 0;
+    }
+
+    #playBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: none;
+      background: #222a44;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px #aaddff;
+      user-select: none;
     }
 
     @keyframes moveStars {
@@ -187,6 +204,12 @@
   <div class="moon"></div>
 
   <div id="centerText">Helin</div>
+
+  <!-- Müzik dosyanın tam yolunu ve ismini doğru yaz -->
+  <audio id="bgMusic" src="music/muzik.mp3" loop></audio>
+
+  <!-- Oynat butonu, otomatik çalma engellenirse gösterilecek -->
+  <button id="playBtn">🎵 Oynat</button>
 
   <script>
     // Parlayan sabit yıldızlar - renk çeşitleriyle
@@ -280,18 +303,25 @@
         centerText.classList.remove('hidden');
       }, 1000);
     });
+
+    // Müzik otomatik çalma ve buton kontrolü
+    const music = document.getElementById('bgMusic');
+    const playBtn = document.getElementById('playBtn');
+
+    playBtn.style.display = 'none'; // Önce gizle
+
+    playBtn.addEventListener('click', () => {
+      music.play();
+      playBtn.style.display = 'none';
+    });
+
+    window.addEventListener('load', () => {
+      music.play().catch(() => {
+        // Otomatik çalma engellendi, butonu göster
+        playBtn.style.display = 'block';
+        console.log("Otomatik müzik oynatma engellendi, buton gösterildi.");
+      });
+    });
   </script>
 </body>
 </html>
-<audio id="bgMusic" src="music/background.mp3" loop></audio>
-
-<script>
-  // Diğer kodların devamı...
-
-  window.addEventListener('load', () => {
-    const music = document.getElementById('bgMusic');
-    music.play().catch(() => {
-      console.log("Otomatik müzik oynatma engellendi.");
-    });
-  });
-</script>
