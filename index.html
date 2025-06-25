@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>Gelişmiş Gece Gökyüzü</title>
   <style>
-    /* GENEL */
     body {
       margin: 0;
       background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
@@ -17,7 +16,6 @@
       color: white;
     }
 
-    /* SABİT YILDIZLAR */
     .stars {
       width: 100%;
       height: 100%;
@@ -30,7 +28,6 @@
       z-index: 1;
     }
 
-    /* PARLAYAN VE RENGİ OYNAYAN YILDIZLAR */
     .twinkle {
       position: absolute;
       border-radius: 50%;
@@ -39,12 +36,11 @@
       z-index: 2;
       filter: drop-shadow(0 0 3px white);
     }
-    /* Renk tonları */
+
     .twinkle.white { background: #fff; }
     .twinkle.soft-blue { background: #aaddff; }
     .twinkle.soft-yellow { background: #fff9c4; }
 
-    /* HAFİF YANIP SÖNEN YILDIZLAR (Çok küçük) */
     .blink-star {
       position: absolute;
       border-radius: 50%;
@@ -55,7 +51,6 @@
       z-index: 1;
     }
 
-    /* BULUTLAR / SİS */
     .cloud {
       position: absolute;
       background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 70%);
@@ -66,7 +61,6 @@
       pointer-events: none;
     }
 
-    /* HİLAL AY */
     .moon {
       position: absolute;
       top: 40px;
@@ -92,7 +86,6 @@
       border-radius: 50%;
     }
 
-    /* KAYAN YILDIZ */
     .shooting-star {
       position: absolute;
       width: 3px;
@@ -122,13 +115,13 @@
       animation: tailFade 2.5s forwards;
     }
 
-    /* ORTADAKİ YAZI */
+    /* ORTADAKİ YAZI - DAHA KÜÇÜK VE ANİMASYONLU */
     #centerText {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 5vw;
+      font-size: 3.5vw; /* Küçüldü */
       font-weight: 600;
       color: white;
       text-shadow:
@@ -147,7 +140,6 @@
       opacity: 0;
     }
 
-    /* ANİMASYONLAR */
     @keyframes moveStars {
       from {background-position: 0 0;}
       to {background-position: -10000px 5000px;}
@@ -188,7 +180,6 @@
         opacity: 0;
       }
     }
-
   </style>
 </head>
 <body>
@@ -276,21 +267,17 @@
       }, 2500);
     });
 
-    // Ortadaki yazı kontrolü ve tıklama ile değişim
+    // Yazı tıklayınca Helin <-> Emrullah arasında geçiş
     const centerText = document.getElementById('centerText');
     let showingHelin = true;
 
     centerText.addEventListener('click', () => {
-      if (!showingHelin) return;
-
-      // Kaybolma animasyonu
       centerText.classList.add('hidden');
 
-      // 1 saniye sonra metni değiştir ve tekrar göster
       setTimeout(() => {
-        centerText.textContent = 'Emrullah';
+        centerText.textContent = showingHelin ? 'Emrullah' : 'Helin';
+        showingHelin = !showingHelin;
         centerText.classList.remove('hidden');
-        showingHelin = false;
       }, 1000);
     });
   </script>
