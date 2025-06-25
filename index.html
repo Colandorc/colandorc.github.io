@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Gece Gökyüzü</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .stars {
+      width: 100%;
+      height: 100%;
+      background: transparent url('https://raw.githubusercontent.com/kangax/fake-loader/master/examples/images/starfield.png') repeat;
+      animation: moveStars 200s linear infinite;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0.5;
+    }
+
+    .twinkle {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      width: 2px;
+      height: 2px;
+      animation: twinkle 2s infinite ease-in-out alternate;
+    }
+
+    @keyframes moveStars {
+      from {background-position: 0 0;}
+      to {background-position: -10000px 5000px;}
+    }
+
+    @keyframes twinkle {
+      from {opacity: 0.2;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <!-- Parlayan 50 yıldız -->
+  <script>
+    for (let i = 0; i < 50; i++) {
+      const star = document.createElement('div');
+      star.classList.add('twinkle');
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.width = (Math.random() * 2 + 1) + 'px';
+      star.style.height = star.style.width;
+      star.style.animationDuration = (Math.random() * 3 + 1) + 's';
+      document.body.appendChild(star);
+    }
+  </script>
+</body>
+</html>
