@@ -14,6 +14,7 @@
       cursor: crosshair;
       user-select: none;
       font-family: Arial, sans-serif;
+      color: white;
     }
 
     /* SABİT YILDIZLAR */
@@ -121,6 +122,31 @@
       animation: tailFade 2.5s forwards;
     }
 
+    /* ORTADAKİ YAZI */
+    #centerText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5vw;
+      font-weight: 600;
+      color: white;
+      text-shadow:
+        0 0 8px #fff,
+        0 0 15px #aaddff,
+        0 0 20px #aaddff;
+      cursor: pointer;
+      user-select: none;
+      opacity: 1;
+      transition: opacity 1s ease;
+      z-index: 10;
+      letter-spacing: 0.1em;
+    }
+
+    #centerText.hidden {
+      opacity: 0;
+    }
+
     /* ANİMASYONLAR */
     @keyframes moveStars {
       from {background-position: 0 0;}
@@ -168,6 +194,8 @@
 <body>
   <div class="stars"></div>
   <div class="moon"></div>
+
+  <div id="centerText">Helin</div>
 
   <script>
     // Parlayan sabit yıldızlar - renk çeşitleriyle
@@ -235,7 +263,7 @@
       createShootingStar();
     }, 4000);
 
-    // Fare ile tıklayınca kayan yıldız çıkar
+    // Fare ile tıklanınca kayan yıldız çıkar
     document.body.addEventListener('click', (e) => {
       const star = document.createElement('div');
       star.classList.add('shooting-star');
@@ -246,6 +274,24 @@
       setTimeout(() => {
         star.remove();
       }, 2500);
+    });
+
+    // Ortadaki yazı kontrolü ve tıklama ile değişim
+    const centerText = document.getElementById('centerText');
+    let showingHelin = true;
+
+    centerText.addEventListener('click', () => {
+      if (!showingHelin) return;
+
+      // Kaybolma animasyonu
+      centerText.classList.add('hidden');
+
+      // 1 saniye sonra metni değiştir ve tekrar göster
+      setTimeout(() => {
+        centerText.textContent = 'Emrullah';
+        centerText.classList.remove('hidden');
+        showingHelin = false;
+      }, 1000);
     });
   </script>
 </body>
