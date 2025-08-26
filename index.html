@@ -203,7 +203,7 @@
   <div class="stars"></div>
   <div class="moon"></div>
 
-  <div id="centerText">Helin</div>
+  <div id="centerText">Sıla</div>
 
   <!-- Müzik dosyanın tam yolunu ve ismini doğru yaz -->
  <audio id="bgMusic" src="music/müzik.mp3" loop></audio>
@@ -293,14 +293,14 @@
 
     // Yazı tıklayınca Sıla <-> Emrullah arasında geçiş
     const centerText = document.getElementById('centerText');
-    let showingHelin = true;
+    let showingSıla = true;
 
     centerText.addEventListener('click', () => {
       centerText.classList.add('hidden');
 
       setTimeout(() => {
-        centerText.textContent = showingHelin ? 'Emrullah' : 'Sıla';
-        showingHelin = !showingHelin;
+        centerText.textContent = showingSıla ? 'Emrullah' : 'Sıla';
+        showingSıla = !showingSıla;
         centerText.classList.remove('hidden');
       }, 1000);
     });
